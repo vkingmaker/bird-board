@@ -34,4 +34,11 @@ class projectsTest extends TestCase
  {
     $this->post('/projects',[])->assertSessionHasErrors('title');
  }
+
+ /** @test */
+
+ public function a_project_requires_a_description()
+ {
+     $this->post('/projects', [])->assertSessionHasErrors('description');
+ }
 }
