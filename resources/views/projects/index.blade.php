@@ -9,8 +9,8 @@
 <body>
     <h1>BirdBoard</h1>
     <ul>
-        @forelse ($projects as $project)
-        <li><a href="{{ $project->path()}}"> {{ $project->title }}</a></li>
+        @forelse ($attributes as $attribute)
+        <li><a href="{{ $attribute->path()}}"> {{ $attribute->title }}</a></li>
         @empty
             <li>No projects yet</li>
         @endforelse

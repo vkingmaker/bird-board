@@ -8,9 +8,9 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        $attributes = auth()->user()->projects;
 
-        return view('projects.index', compact('projects'));
+        return view('projects.index', compact('attributes'));
     }
 
     public function store()
