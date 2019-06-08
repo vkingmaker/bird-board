@@ -18,7 +18,6 @@ class ProjectTasksTest extends TestCase
         $project = factory('App\Project')->create();
 
         $this->post($project->path().'/tasks')->assertRedirect('/login');
-
     }
 
     /** @test */
@@ -34,19 +33,17 @@ class ProjectTasksTest extends TestCase
              ->assertStatus(403);
 
         $this->assertDatabaseMissing('tasks', ['body' => 'Test Tasks']);
-
     }
+
 
     /** @test */
 
     public function a_project_can_have_tasks()
     {
-        $this->withoutExceptionHandling();
-
         $this->signIn();
 
-       $project =  auth()->user()->projects()->create(
-            factory('App\Project')->raw()
+        $project =  auth()->user()->projects()->create(
+           factory('App\Project')->raw()
         );
 
         $this->post($project->path().'/tasks', ['body' => 'Test Tasks']);
@@ -54,6 +51,34 @@ class ProjectTasksTest extends TestCase
         $this->get($project->path())
 
              ->assertSee('Test Tasks');
+    }
+
+
+    /** @test */
+
+    public function a_task_can_be_updated()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->signIn();
+
+        $project =  auth()->user()->projects()->create(
+           factory('App\Project')->raw()
+        );
+
+        $task = $project->addTask('Test Task');
+
+        $this->patch($project->path().'/tasks/'.$task->id, [
+
+            'body' => 'Changed task',
+
+            'completed' => true
+        ]);
+
+        $this->assertDatabaseHas('tasks',[
+            'body' => 'Changed task',
+            'completed' => true
+        ]);
     }
 
     /** @test */
@@ -65,13 +90,11 @@ class ProjectTasksTest extends TestCase
         $this->signIn();
 
         $project =  auth()->user()->projects()->create(
-
             factory('App\Project')->raw()
         );
 
         $attributes = factory('App\Task')->raw(['body' => '']);
 
         $this->post($project->path().'/tasks', $attributes)->assertSessionHasErrors('body');
-
     }
 }
