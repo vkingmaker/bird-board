@@ -12,6 +12,16 @@ class ProjectTasksTest extends TestCase
 
     /** @test */
 
+    public function guest_cannot_add_tasks_to_projects()
+    {
+        $project = factory('App\Project')->create();
+
+        $this->post($project->path().'/tasks')->assertRedirect('/login');
+
+    }
+
+    /** @test */
+
     public function a_project_can_have_tasks()
     {
         $this->withoutExceptionHandling();
