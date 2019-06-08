@@ -28,4 +28,23 @@ class ProjectTasksTest extends TestCase
 
              ->assertSee('Test Tasks');
     }
+
+    /** @test */
+
+    public function a_task_requires_a_body()
+    {
+        // $this->withoutExceptionHandling();
+
+        $this->signIn();
+
+        $project =  auth()->user()->projects()->create(
+
+            factory('App\Project')->raw()
+        );
+
+        $attributes = factory('App\Task')->raw(['body' => '']);
+
+        $this->post($project->path().'/tasks', $attributes)->assertSessionHasErrors('body');
+
+    }
 }
