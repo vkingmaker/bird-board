@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Psy\CodeCleaner\AssignThisVariablePass;
 
 class ProjectTasksTest extends TestCase
 {
@@ -17,6 +18,22 @@ class ProjectTasksTest extends TestCase
         $project = factory('App\Project')->create();
 
         $this->post($project->path().'/tasks')->assertRedirect('/login');
+
+    }
+
+    /** @test */
+
+    public function only_the_owner_of_a_project_can_add_tasks()
+    {
+        $this->signIn();
+
+        $project = factory('App\Project')->create();
+
+        $this->post($project->path().'/tasks', ['body' => 'Test Tasks'])
+
+             ->assertStatus(403);
+
+        $this->assertDatabaseMissing('tasks', ['body' => 'Test Tasks']);
 
     }
 
