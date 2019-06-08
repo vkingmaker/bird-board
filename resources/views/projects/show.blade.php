@@ -10,5 +10,9 @@
     <h1> {{ $project->title }}</h1>
 
     <div>{{ $project->description }}</div>
+
+    @foreach ($project->tasks as $task)
+        {{ $task }}
+    @endforeach
 </body>
 </html>

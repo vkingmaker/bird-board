@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Project extends Model
 {
@@ -16,5 +17,15 @@ class Project extends Model
     public function owner()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function addTask($body)
+    {
+        return $this->tasks()->create(compact('body'));
     }
 }
