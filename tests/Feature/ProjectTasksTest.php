@@ -18,7 +18,9 @@ class ProjectTasksTest extends TestCase
 
         $this->signIn();
 
-        $project = factory('App\Project')->create(['owner_id' => auth()->id()]);
+       $project =  auth()->user()->projects()->create(
+            factory('App\Project')->raw()
+        );
 
         $this->post($project->path().'/tasks', ['body' => 'Test Tasks']);
 
