@@ -35,6 +35,23 @@ class ProjectTasksTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['body' => 'Test Tasks']);
     }
 
+    /** @test */
+
+    public function only_the_owner_of_a_project_can_update_a_tasks()
+    {
+
+        $this->signIn();
+
+        $project = factory('App\Project')->create();
+
+        $task = $project->addTask('Test Task');
+
+        $this->patch($project->path().'/tasks/'.$task->id, ['body' => 'changed'])
+
+             ->assertStatus(403);
+
+        $this->assertDatabaseMissing('tasks', ['body' => 'changed']);
+    }
 
     /** @test */
 
