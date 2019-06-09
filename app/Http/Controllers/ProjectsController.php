@@ -20,15 +20,17 @@ class ProjectsController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate([
-            'title' => 'required',
-            'description' => 'required'
-            ]);
+        $project = auth()->user()->projects()->create($this->validateRequest());
 
+        if ($tasks = request('tasks')) {
+            $project->addTasks($tasks);
+        }
 
-        auth()->user()->projects()->create($attributes);
+        if (request()->wantsJson()) {
+            return ['message' => $project->path()];
+        }
 
-        return redirect('projects');
+        return redirect($project->path());
     }
 
     public function show(Project $project)
@@ -38,5 +40,20 @@ class ProjectsController extends Controller
         }
 
         return view('projects.show', compact('project'));
+    }
+
+
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function validateRequest()
+    {
+        return request()->validate([
+            'title' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'notes' => 'nullable'
+        ]);
     }
 }
