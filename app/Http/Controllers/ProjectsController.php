@@ -8,9 +8,9 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        $attributes = auth()->user()->projects;
+        $projects = auth()->user()->projects;
 
-        return view('projects.index', compact('attributes'));
+        return view('projects.index', compact('projects'));
     }
 
     public function create()
@@ -43,6 +43,15 @@ class ProjectsController extends Controller
         }
 
         return view('projects.show', compact('project'));
+    }
+
+
+    public function update(Project $project)
+    {
+
+        $project->update(request(['notes']));
+
+        return redirect($project->path());
     }
 
 

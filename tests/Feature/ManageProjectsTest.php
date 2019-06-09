@@ -65,7 +65,24 @@ class ManageProjectsTest extends TestCase
 
     /** @test */
 
-    public function a_user_can_view_a_project()
+    public function a_user_can_update_a_project()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->signIn();
+
+        $project = factory('App\Project')->create(['owner_id'=> auth()->id()]);
+
+        $this->patch($project->path(), [
+            'notes' => 'Changed'
+        ])->assertRedirect($project->path());
+
+        $this->assertDatabaseHas('projects', ['notes' => 'Changed']);
+    }
+
+    /** @test */
+
+    public function a_user_can_view_their_project()
     {
         $this->signIn();
 
