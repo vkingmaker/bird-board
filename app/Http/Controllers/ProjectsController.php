@@ -23,6 +23,7 @@ class ProjectsController extends Controller
         $project = auth()->user()->projects()->create($this->validateRequest());
 
         if ($tasks = request('tasks')) {
+
             $project->addTasks($tasks);
         }
 
@@ -36,7 +37,9 @@ class ProjectsController extends Controller
     public function show(Project $project)
     {
         if (auth()->user()->isNot($project->owner)) {
+
             abort(403);
+
         }
 
         return view('projects.show', compact('project'));

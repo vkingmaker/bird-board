@@ -30,7 +30,7 @@ class ManageProjectsTest extends TestCase
 
     public function a_user_can_create_a_project()
     {
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $this->signIn();
 
@@ -40,16 +40,22 @@ class ManageProjectsTest extends TestCase
 
         'title' => $this->faker->sentence,
 
-        'description' => $this->faker->paragraph
+        'description' => $this->faker->paragraph,
+
+        'notes' => 'General notes here'
     ];
 
         $response = $this->post('/projects', $attributes);
 
-        $response->assertRedirect(Project::where($attributes)->first()->path());
+        $project = Project::where($attributes)->first();
+
+        $response->assertRedirect($project->path());
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes['title']);
+        $this->get($project->path())
+
+             ->assertSee($attributes['title']);
     }
 
 
