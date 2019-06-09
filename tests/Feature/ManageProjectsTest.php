@@ -40,7 +40,7 @@ class ManageProjectsTest extends TestCase
 
         'title' => $this->faker->sentence,
 
-        'description' => $this->faker->paragraph,
+        'description' => $this->faker->sentence,
 
         'notes' => 'General notes here'
     ];
@@ -55,7 +55,11 @@ class ManageProjectsTest extends TestCase
 
         $this->get($project->path())
 
-             ->assertSee($attributes['title']);
+             ->assertSee($attributes['title'])
+
+             ->assertSee($attributes['description'])
+
+             ->assertSee($attributes['notes']);
     }
 
 

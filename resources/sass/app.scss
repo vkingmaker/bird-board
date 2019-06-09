@@ -1,8 +1,19 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@tailwind preflight;
 
-// Variables
-@import 'variables';
+@import 'themes/light';
+@import 'themes/dark';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'components/button';
+@import 'components/card';
+@import 'components/dropdown';
+
+body,
+button {
+    @apply .text-default;
+}
+
+.section {
+    @apply .px-8;
+}
+
+@tailwind utilities;
