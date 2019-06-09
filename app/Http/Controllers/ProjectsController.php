@@ -8,7 +8,7 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        $attributes = auth()->user()->projects;
+        $attributes = auth()->user()->projects()->orderBy('updated_at','desc')->get();
 
         return view('projects.index', compact('attributes'));
     }
