@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\{ Project, Task };
+use App\Project;
+use App\Task;
 
 use Illuminate\Http\Request;
 
@@ -29,6 +30,5 @@ class ProjectTasksController extends Controller
         ]);
 
         return redirect($project->path());
-
     }
 }
