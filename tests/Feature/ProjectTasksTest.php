@@ -40,7 +40,6 @@ class ProjectTasksTest extends TestCase
 
     public function only_the_owner_of_a_project_can_update_a_tasks()
     {
-        // $this->withoutExceptionHandling();
 
         $this->signIn();
 

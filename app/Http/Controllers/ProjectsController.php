@@ -28,10 +28,16 @@ class ProjectsController extends Controller
         }
 
         if (request()->wantsJson()) {
+
             return ['message' => $project->path()];
         }
 
         return redirect($project->path());
+    }
+
+    public function edit(Project $project)
+    {
+        return view('projects.edit', compact('project'));
     }
 
     public function show(Project $project)
@@ -47,7 +53,7 @@ class ProjectsController extends Controller
 
         $this->authorize('update',$project);
 
-        $project->update(request(['notes']));
+        $project->update($this->validateRequest());
 
         return redirect($project->path());
     }
