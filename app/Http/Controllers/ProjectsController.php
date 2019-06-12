@@ -69,7 +69,7 @@ class ProjectsController extends Controller
         return request()->validate([
             'title' => 'sometimes|required',
             'description' => 'sometimes|required',
-            'notes' => 'min:3'
+            'notes' => 'nullable'
         ]);
     }
 }
