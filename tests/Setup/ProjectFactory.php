@@ -3,22 +3,44 @@
 namespace Tests\Setup;
 
 use App\Project;
-use App\User;
 use App\Task;
+use App\User;
 
 class ProjectFactory
 {
-    protected $taskCount = 0;
+    /**
+     * The number of tasks for the project.
+     *
+     * @var int
+     */
+    protected $tasksCount = 0;
 
+    /**
+     * The owner of the project.
+     *
+     * @var User
+     */
     protected $user;
 
-    public function withTask($count)
+    /**
+     * Set the number of tasks to create for the project.
+     *
+     * @param  int $count
+     * @return $this
+     */
+    public function withTasks($count)
     {
-        $this->taskCount = $count;
+        $this->tasksCount = $count;
 
         return $this;
     }
 
+    /**
+     * Set the owner of the new project.
+     *
+     * @param  User $user
+     * @return $this
+     */
     public function ownedBy($user)
     {
         $this->user = $user;
@@ -26,20 +48,22 @@ class ProjectFactory
         return $this;
     }
 
+    /**
+     * Arrange the world.
+     *
+     * @return Project
+     */
     public function create()
     {
         $project = factory(Project::class)->create([
-
-            'owner_id' => $this->user ?? factory(User::class)->create()
-
+            'owner_id' => $this->user ?? factory(User::class)
         ]);
 
-        factory(Task::class, $this->taskCount)->create([
-
-            'project_id' => $project->id
-
+        factory(Task::class, $this->tasksCount)->create([
+            'project_id' => $project
         ]);
 
         return $project;
     }
 }
+
