@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vkingmaker/birdboard -f .
+script:
+  - docker run vkingmaker/birdboard vendor/bin/phpunit
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push vkingmaker/birdboard
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-2
+  app: birdboard
+  env: birdboard-env
+  bucket_name: elasticbeanstalk-us-west-2-933606557740
+  bucket_path:  birdboard-app
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
