@@ -5,7 +5,7 @@
         "name": "birdboard",
         "image": "vkingmaker/birdboard",
         "hostname": "birdboard",
-        "essential": false,
+        "essential": true,
         "memory": 128
       }
     ]
