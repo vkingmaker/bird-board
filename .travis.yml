@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t vkingmaker/birdboard -f .
+  - docker build -t vkingmaker/birdboard .
 script:
   - docker run vkingmaker/birdboard vendor/bin/phpunit
 
