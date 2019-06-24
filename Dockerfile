@@ -4,7 +4,7 @@ WORKDIR /var/www/html
 
 RUN apt update \
     && apt install -y nginx \
-    && apt install -y php-fpm php-mysql php7.2-gd php7.2-intl php7.2-xsl php-mbstring php7.2-zip\
+    && apt install -y php-fpm php-mysql php7.2-gd php7.2-intl php7.2-xsl php-mbstring php7.2-zip php7.2-sqlite3 \
     && apt install -y zip unzip \
     && apt install -y ca-certificates \
     && apt install -y nodejs \
