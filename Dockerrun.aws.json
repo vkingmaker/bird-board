@@ -1,12 +1,18 @@
 {
     "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
-      {
-        "name": "birdboard",
-        "image": "vkingmaker/birdboard",
-        "hostname": "birdboard",
-        "essential": true,
-        "memory": 128
-      }
+        {
+            "name": "nginx",
+            "image": "vkingmaker/birdboard",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "memory": 128
+        }
     ]
 }
