@@ -22,7 +22,6 @@ COPY . .
 RUN composer install --no-interaction
 RUN npm install
 # RUN npm run prod
-RUN npm run prod
 
 RUN chown -R $USER:www-data storage
 RUN chown -R $USER:www-data bootstrap/cache
