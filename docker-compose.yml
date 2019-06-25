@@ -12,5 +12,5 @@ services:
       - '3307:3306'
   webserver:
     build: .
-    ports: 
+    ports:
       - 8080:80
