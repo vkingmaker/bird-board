@@ -3,13 +3,12 @@ FROM ubuntu:18.04
 WORKDIR /var/www/html
 
 RUN apt update \
+    && apt install -y ca-certificates zip unzip curl \
     && apt install -y nginx \
     && apt install -y php-fpm php-mysql php7.2-gd php7.2-intl php7.2-xsl php-mbstring php7.2-zip php7.2-sqlite3 \
-    && apt install -y zip unzip \
-    && apt install -y ca-certificates \
-    && apt install -y nodejs \
-    && apt install -y npm \
-    && apt install -y git
+    && apt install -y git \
+    && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
+    && apt install -y nodejs
 
 # installing composer
 
@@ -21,7 +20,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 COPY . .
 RUN composer install --no-interaction
 RUN npm install
-# RUN npm run prod
+RUN npm run prod
 
 RUN chown -R $USER:www-data storage
 RUN chown -R $USER:www-data bootstrap/cache
