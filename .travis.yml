@@ -14,10 +14,10 @@ after_success:
 deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
-  app: "Bd"
+  app: "Bb"
   env: "Bb-env"
   bucket_name: "elasticbeanstalk-us-east-1-933606557740"
-  bucket_path:  "Bd"
+  bucket_path:  "Bb"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
