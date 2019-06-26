@@ -20,4 +20,4 @@ services:
       DB_DATABASE: birdboard
       DB_USERNAME: birdboard
       DB_PASSWORD: password
-      APP_KEY: base64:VdgOvuC9/59T6BZOfVF7rAijGesrwp+zIRH4LbSsbfQ=
+      APP_KEY: base64:aHlbY1fMQgXoCKvflfXtfI1XydwxWZliiKOhFmzs44s=

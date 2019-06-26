@@ -19,9 +19,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 COPY . .
 
-RUN composer install --optimize-autoloader --no-dev \
-    && php artisan config:cache \
-    && php artisan route:cache
+RUN composer install --optimize-autoloader --no-dev
 
 # RUN npm install \
 #     && npm run prod
