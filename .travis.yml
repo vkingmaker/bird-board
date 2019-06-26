@@ -15,10 +15,10 @@ after_success:
 deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
-  app: "Bb"
-  env: "Bb-env"
+  app: "birdboard"
+  env: "Birdboard-env"
   bucket_name: "elasticbeanstalk-us-east-1-933606557740"
-  bucket_path:  "Bb"
+  bucket_path:  "birdboard"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
