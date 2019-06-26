@@ -18,18 +18,15 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');"
 
 COPY . .
+RUN composer install --no-interaction
+# RUN npm install
+# RUN npm run prod
 
-RUN composer install --optimize-autoloader --no-dev \
-    && php artisan config:cache \
-    && php artisan route:cache
+RUN chown -R $USER:www-data storage
+RUN chown -R $USER:www-data bootstrap/cache
 
-# RUN npm install \
-#     && npm run prod
-
-RUN chown -R $USER:www-data storage \
-    && chown -R $USER:www-data bootstrap/cache \
-    && chmod -R 775 storage \
-    && chmod -R 775 bootstrap/cache
+RUN chmod -R 775 storage
+RUN chmod -R 775 bootstrap/cache
 
 COPY ./nginx/default.conf /etc/nginx/sites-enabled/default
 COPY ./php/info.php /var/www/html/public/info.php
