@@ -7,8 +7,8 @@ RUN apt update \
     && apt install -y nginx \
     && apt install -y php-fpm php-mysql php7.2-gd php7.2-intl php7.2-xsl php-mbstring php7.2-zip php7.2-sqlite3 \
     && apt install -y git
-    # && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-    # && apt install -y nodejs
+    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt install -y nodejs
 
 # installing composer
 
@@ -21,8 +21,8 @@ COPY . .
 
 RUN composer install --optimize-autoloader --no-dev
 
-# RUN npm install \
-#     && npm run prod
+RUN npm install \
+    && npm run prod
 
 RUN chown -R $USER:www-data storage \
     && chown -R $USER:www-data bootstrap/cache \
