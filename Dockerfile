@@ -6,7 +6,7 @@ RUN apt update \
     && apt install -y ca-certificates zip unzip curl \
     && apt install -y nginx \
     && apt install -y php-fpm php-mysql php7.2-gd php7.2-intl php7.2-xsl php-mbstring php7.2-zip php7.2-sqlite3 \
-    && apt install -y git
+    && apt install -y git \
     && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && apt install -y nodejs
 
