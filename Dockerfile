@@ -29,6 +29,7 @@ RUN chown -R $USER:www-data storage \
     && chmod -R 775 storage \
     && chmod -R 775 bootstrap/cache
 
+
 COPY ./nginx/default.conf /etc/nginx/sites-enabled/default
 COPY ./php/info.php /var/www/html/public/info.php
 
