@@ -15,6 +15,10 @@ before_install:
   - gcloud config set compute/zone us-central1-a
   - gcloud container clusters get-credentials birdboard-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t vkingmaker/birdboard-test .
+
+script:
+  - docker run vkingmaker/birdboard-test vendor/bin/phpunit
 
 deploy:
   provider: script
