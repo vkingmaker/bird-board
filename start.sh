@@ -1,6 +1,5 @@
 #!/bin/bash
 
-chmod +x wait-for-it.sh
 php artisan config:cache && php artisan route:cache
 echo 'Waiting for Mysql to be available'
 maxTries=10
