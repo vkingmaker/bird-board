@@ -1,26 +1,27 @@
 sudo: required
 services:
   - docker
-
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-  - docker build -t vkingmaker/birdboard-test -f Dockerfile.dev .
+  - openssl aes-256-cbc -K $encrypted_47230e0a2c45_key -iv $encrypted_47230e0a2c45_iv -in service-account.json.enc -out service-account.json -d
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud auth activate-service-account --key-file service-account.json
+  - gcloud config set project birdboard-245411
+  - gcloud config set compute/zone us-central1-a
+  - gcloud container clusters get-credentials birdboard-cluster
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t vkingmaker/birdboard-test -f .
+
 script:
   - docker run vkingmaker/birdboard-test vendor/bin/phpunit
 
-after_success:
-  - docker build -t vkingmaker/birdboard .
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push vkingmaker/birdboard
-
 deploy:
-  provider: elasticbeanstalk
-  region: "us-east-1"
-  app: "birdboard"
-  env: "Birdboard-env"
-  bucket_name: "elasticbeanstalk-us-east-1-933606557740"
-  bucket_path:  "birdboard"
+  provider: script
+  script: bash ./deploy.sh
   on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: "$AWS_SECRET_KEY"
+    branch: k8s
