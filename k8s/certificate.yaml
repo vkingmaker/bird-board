@@ -1,9 +1,9 @@
-apiVersion: certmanager.k8s.io/v1alpha
+apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
   name: bird-board-tk-tls
 spec:
-  secretName: bird-board-tk
+  secretName: bird-board.tk
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -18,4 +18,3 @@ spec:
         domains:
           - bird-board.tk
           - www.bird-board.tk
-
