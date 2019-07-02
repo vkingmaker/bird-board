@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: bird-board-tk-tls
 spec:
-  secretName: bird-board-tk-tls
+  secretName: bird-board-tk
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -18,3 +18,4 @@ spec:
         domains:
           - bird-board.tk
           - www.bird-board.tk
+
