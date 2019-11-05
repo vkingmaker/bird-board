@@ -13,7 +13,7 @@ before_install:
   - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set project birdboard-245411
   - gcloud config set compute/zone us-central1-a
-  - gcloud container clusters get-credentials birdboard-cluster
+  - gcloud container clusters get-credentials bird-board-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t vkingmaker/birdboard-test -f Dockerfile.dev .
 
