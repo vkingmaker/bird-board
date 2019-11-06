@@ -30,7 +30,6 @@ RUN chown -R $USER:www-data storage \
 COPY ./nginx/default.conf /etc/nginx/sites-enabled/default
 COPY ./php/info.php /var/www/html/public/info.php
 
-
 EXPOSE 80
 
 CMD ["bash", "start.sh"]
