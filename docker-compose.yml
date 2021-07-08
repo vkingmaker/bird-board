@@ -3,6 +3,8 @@ services:
   db:
     image: mysql:5.7
     restart: always
+    volumes:
+      - "dbdata:/var/lib/mysql"
     environment:
       MYSQL_DATABASE: 'birdboard'
       MYSQL_USER: 'birdboard'
@@ -21,3 +23,7 @@ services:
       DB_USERNAME: birdboard
       DB_PASSWORD: password
       APP_KEY: base64:aHlbY1fMQgXoCKvflfXtfI1XydwxWZliiKOhFmzs44s=
+
+volumes:
+  dbdata:
+
